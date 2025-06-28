@@ -1,1 +1,10 @@
+@font-face {
+  font-family: "Titillium Web Light";
+  src: url("/fonts/TitilliumWeb-Light.ttf") format("ttf");
+}
+
 @import "tailwindcss";
+
+@theme {
+  --font-titillium: "Titillium Web Light", sans-serif;
+}
