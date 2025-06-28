@@ -1,65 +1,33 @@
 import { Link } from "react-router-dom";
 import type { Product } from "../types";
+import CartButton from "./ui/CartButton";
 
 const ProductThumb = ({ product }: { product: Product }) => {
   const isOutOfStock = product.isOutOfStock === true;
   return (
     <Link
       to={`/products/${product.id}`}
-      className={`group flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden w-full max-w-xs sm:max-w-sm mx-auto ${
-        isOutOfStock ? "opacity-50" : ``
-      }`}
+      key={product.id}
+      className="group relative flex flex-col gap-y-2 items-center justify-center bg-white p-24 h-[300px] cursor-pointer  rounded-lg border border-gray-200 shadow hover:shadow-md "
     >
-      <div className="relative aspect-square w-full h-full overflow-hidden mx-auto">
-        {product.image && (
-          // <Image
-          //   className="object-contain transition-transform duration-300 group-hover:scale-105"
-          //   src={imageUrl(product.image).url()}
-          //   alt={product.name || "Product image"}
-          //   fill
-          //   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          // />
-          // <Image
-          //   className="object-contain transition-transform duration-300 group-hover:scale-105"
-          //   src={imageUrl(product.image).url()}
-          //   alt={product.name || "Product image"}
-          //   width={150} // same as w-20
-          //   height={150} // same as h-20
-          // />
-          <img
-            className="object-contain transition-transform duration-300 group-hover:scale-105"
-            src={product.image}
-            alt={product.name || "Product image"}
-            style={{ width: "100%", height: "100%" }}
-          />
-        )}
-
-        {isOutOfStock && (
-          <div className="absolute inset-0 flex items-center justify-center  bg-opacity-50">
-            <span className="text-white font-bold text-lg">Out of Stock</span>
-          </div>
-        )}
+      <img
+        src={product.image}
+        alt="Product Image"
+        width={100}
+        height={100}
+        className={`${"group-hover:-translate-y-2 transition-all duration-500 sm:scale-120 md:scale-130"}`}
+      />
+      <div className="absolute bottom-5 left-5">
+        <h1 className={`text-zinc-700 "text-sm`}>{product.name}</h1>
+        <span className={`text-pink-400 "text-sm`}>${product.price}</span>
       </div>
-      {/* <div className="p-4">
-        <h2 className="text-lg font-semibold text-gray-800 truncate">
-          {product.name}
-        </h2>
-        <p className="mt-2 text-sm text-gray-600 line-clamp-2">
-          {product.description
-            ?.map((block) =>
-              block._type === "block"
-                ? block.children?.map((child) => child.text).join("")
-                : ""
-            )
-            .join(" ") || "No description available"}
-        </p>
+      {isOutOfStock && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-500/10">
+          <span className="text-white font-bold text-lg">Out of Stock</span>
+        </div>
+      )}
 
-        <p className="mt-2 text-lg font-bold text-gray-900">
-          {product.price
-            ? `$${product.price.toFixed(2)}`
-            : "Price not available"}
-        </p>
-      </div> */}
+      <CartButton product={product} />
     </Link>
   );
 };
