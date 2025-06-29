@@ -6,6 +6,11 @@ import { FaShoppingCart } from "react-icons/fa";
 import { formatCurrency } from "./utils/FormatCurrency";
 import ProductsGrid from "./ProductsGrid";
 import ProductThumb from "./ProductThumb";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const COUPON_KEY = "couponUsed";
+const VALID_COUPON = "POWERLABSx";
 const Cart = () => {
   const { cartItems, setCartItems } = useCart();
   const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -23,20 +28,52 @@ const Cart = () => {
     // setLocalStorage();
   }, [allProducts]);
 
-  console.log("hey");
+  const [coupon, setCoupon] = useState<string>("");
+  const [couponUsed, setCouponUsed] = useState<boolean>(false);
 
-  console.log("cartItems", cartItems);
+  const usedCoupon = localStorage.getItem(COUPON_KEY);
+
+  useEffect(() => {
+    const used = localStorage.getItem(COUPON_KEY);
+    setCouponUsed(used === VALID_COUPON.toUpperCase());
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCoupon(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const entered = coupon.trim().toUpperCase();
+
+    if (couponUsed && entered === VALID_COUPON.toUpperCase()) {
+      toast.error("Coupon has already been used.");
+      return;
+    }
+
+    if (entered === VALID_COUPON.toUpperCase()) {
+      setTotalPrice((prev) => prev * 0.868); // Apply 13.2% discount
+      localStorage.setItem(COUPON_KEY, entered); // ✅ Persist the used coupon
+      setCouponUsed(true);
+      toast.success("🎉 Coupon applied! 13.2% discount.");
+    } else {
+      toast.error("😥 Invalid coupon code.");
+    }
+  };
 
   return (
     <>
       {cartItems.length !== 0 && (
         <div
-          className={`w-[300px]  sm:w-[500px] h-screen bg-white fixed   z-20 border-l-4 border-red-200 rounded-tl-lg ${
-            isOpen ? "right-0 bottom-0 " : "-right-[300px] sm:-right-[500px] bottom-[-85%]"
+          className={`w-[300px]  sm:w-[500px] h-screen bg-white fixed   z-20 border-l-1 border-yellow-400 rounded-tl-lg transition-all duration-500 ease-in-out ${
+            isOpen
+              ? "right-0 bottom-0 "
+              : "-right-[300px] sm:-right-[500px] bottom-[-85%]"
           }`}
         >
-          <div className="w-full h-16 bg-white absolute left-0 top-0 z-1000 grid place-items-center border rounded-lg">
-            <h1 className="text-xl text-gray-600">Shopping Cart</h1>
+          <div className="w-full h-16 bg-white absolute left-0 top-0 z-1000 grid place-items-center shadow rounded-lg">
+            <h1 className="text-xl text-gray-600">My Basket</h1>
             <button
               className="w-9 h-9 bg-yellow-400 absolute right-3 z-15 grid place-items-center border-2 rounded-full hover:bg-yellow-500 transition-colors"
               onClick={() => setIsOpen(false)}
@@ -58,7 +95,23 @@ const Cart = () => {
               return <ProductThumb product={product} scale={40} />;
             })}
           </div>
-          <div className="w-full h-20 bg-white absolute bottom-0 left-0 z-10 grid place-items-center border rounded-lg">
+          <div className="w-full h-40 bg-gray-100 absolute bottom-0 left-0 z-10 grid place-items-center shadow-md rounded-lg">
+            {/* coupon */}
+            <form
+              onSubmit={handleSubmit}
+              className="flex items-center gap-x-2 justify-center"
+            >
+              <input
+                onChange={handleChange}
+                type="text"
+                id="coupon"
+                placeholder="Enter coupon code"
+                className="px-4 py-2 bg-gray-200 rounded focus:outline-gray-300 w-full max-w-6xl placeholder:text-xs sm:placeholder:text-sm"
+              />
+              <button className="rounded-md bg-green-300 px-2 py-1 text-white hover:bg-green-400 transition-colors cursor-pointer">
+                Apply
+              </button>
+            </form>
             <h1 className="text-xl text-gray-600">
               Total: {formatCurrency(totalPrice)}
             </h1>

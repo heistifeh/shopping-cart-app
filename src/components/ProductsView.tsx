@@ -5,35 +5,22 @@ import { useCart } from "../context/CartContext";
 const ProductsView = () => {
   const [category, setCategory] = useState("all");
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const response = await fetch("/products.json");
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const data = await response.json();
-  //       setProducts(data);
-  //     } catch (error) {
-  //       console.error("Failed to fetch products:", error);
-  //     }
-  //   };
 
-  //   fetchProducts();
-  // }, []);
 
   const { allProducts } = useCart();
 
-  // const filteredProducts =
-  //   category === "all"
-  //     ? allProducts
-  //     : allProducts.filter((product) => product.category === category);
+  const filteredProducts =
+    category === "all"
+      ? allProducts
+      : allProducts.filter((product) => product.category === category);
 
   return (
     <div className="products-view container mx-auto">
       {/* //category filter */}
       <div className="bg-pink-900 text-white p-2 mb-4 rounded max-w-sm flex justify-between items-center">
-        <select>
+        <select
+        value={category}
+          onChange={(e) => setCategory(e.target.value)}>
           <option value="all">All Categories</option>
           <option value="hoodie">Hoodies</option>
           <option value="jacket">Jackets</option>
@@ -44,7 +31,7 @@ const ProductsView = () => {
       <div>
         {/* //product grid */}
 
-        <ProductsGrid products={allProducts} />
+        <ProductsGrid products={filteredProducts} />
       </div>
     </div>
   );
