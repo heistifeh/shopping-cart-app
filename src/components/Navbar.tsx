@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { setIsOpen, cartItems } = useCart();
@@ -22,7 +23,13 @@ const Navbar = () => {
         </form>
         <div className="gap-2 sm:gap-4 flex items-center justify-center sm:justify-start  sm:w-auto">
           <div
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              if (cartItems.length > 0) {
+                setIsOpen(true);
+              } else {
+                toast.info("😥 Your cart is empty.");
+              }
+            }}
             className=" relative text-white px-4 py-2 rounded  bg-gray-500 hover:bg-gray-600 lg:w-auto w-full flex items-center justify-center cursor-pointer"
           >
             <FaShoppingCart />

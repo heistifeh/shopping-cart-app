@@ -5,22 +5,7 @@ import { useCart } from "../context/CartContext";
 const ProductsView = () => {
   const [category, setCategory] = useState("all");
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const response = await fetch("/products.json");
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       const data = await response.json();
-  //       setProducts(data);
-  //     } catch (error) {
-  //       console.error("Failed to fetch products:", error);
-  //     }
-  //   };
-
-  //   fetchProducts();
-  // }, []);
+  
 
   const { allProducts } = useCart();
 
