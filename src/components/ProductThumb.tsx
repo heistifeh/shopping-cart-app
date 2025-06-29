@@ -5,8 +5,8 @@ import CartButton from "./ui/CartButton";
 const ProductThumb = ({ product }: { product: Product }) => {
   const isOutOfStock = product.isOutOfStock === true;
   return (
-    <Link
-      to={`/products/${product.id}`}
+    <div
+      // to={`/products/${product.id}`}
       key={product.id}
       className="group relative flex flex-col gap-y-2 items-center justify-center bg-white p-24 h-[300px] cursor-pointer  rounded-lg border border-gray-200 shadow hover:shadow-md "
     >
@@ -28,7 +28,7 @@ const ProductThumb = ({ product }: { product: Product }) => {
       )}
 
       <CartButton product={product} />
-    </Link>
+    </div>
   );
 };
 

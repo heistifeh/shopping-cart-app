@@ -6,7 +6,9 @@
     "description": "A timeless black hoodie made from soft, breathable cotton.",
     "category": "hoodie",
     "image": "/images/hoodie-4.jpg",
-    "isOutOfStock": false
+    "isOutOfStock": false,
+    "inCart": false,
+    "quantity": 1
   },
   {
     "id": 2,
@@ -15,7 +17,9 @@
     "description": "Rugged and stylish, perfect for layering in cool weather.",
     "category": "jacket",
     "image": "/images/jacket-1.jpg",
-    "isOutOfStock": false
+    "isOutOfStock": false,
+    "inCart": false,
+    "quantity": 1
   },
   {
     "id": 3,
@@ -24,7 +28,9 @@
     "description": "Lightweight and breathable running shoes for everyday workouts.",
     "category": "shoes",
     "image": "/images/shoes-4.jpg",
-    "isOutOfStock": false
+    "isOutOfStock": false,
+    "inCart": false,
+    "quantity": 1
   },
   {
     "id": 4,
@@ -33,7 +39,9 @@
     "description": "Everyday comfort with a front zip and adjustable hood.",
     "category": "hoodie",
     "image": "/images/hoodie-5.jpg",
-    "isOutOfStock": false
+    "isOutOfStock": false,
+    "inCart": false,
+    "quantity": 1
   },
   {
     "id": 5,
@@ -42,7 +50,9 @@
     "description": "Sleek bomber with ribbed cuffs and a lightweight lining.",
     "category": "jacket",
     "image": "/images/jacket-4.jpg",
-    "isOutOfStock": true
+    "isOutOfStock": true,
+    "inCart": false,
+    "quantity": 1
   },
   {
     "id": 6,
@@ -51,7 +61,9 @@
     "description": "Trendy sneakers designed for style and comfort.",
     "category": "shoes",
     "image": "/images/shoes-10.jpg",
-    "isOutOfStock": false
+    "isOutOfStock": false,
+    "inCart": false,
+    "quantity": 1
   },
   {
     "id": 7,
@@ -60,7 +72,9 @@
     "description": "Ultra-warm hoodie with a soft fleece interior.",
     "category": "hoodie",
     "image": "/images/hoodie-6.jpg",
-    "isOutOfStock": false
+    "isOutOfStock": false,
+    "inCart": false,
+    "quantity": 1
   },
   {
     "id": 8,
@@ -69,7 +83,9 @@
     "description": "Durable cotton canvas jacket with multiple pockets.",
     "category": "jacket",
     "image": "/images/jacket-7.jpg",
-    "isOutOfStock": true
+    "isOutOfStock": true,
+    "inCart": false,
+    "quantity": 1
   },
   {
     "id": 9,
@@ -78,7 +94,9 @@
     "description": "Built for performance in all conditions, rain or shine.",
     "category": "shoes",
     "image": "/images/shoes-2.jpg",
-    "isOutOfStock": false
+    "isOutOfStock": false,
+    "inCart": false,
+    "quantity": 1
   },
   {
     "id": 10,
@@ -87,6 +105,8 @@
     "description": "Bold color and cozy fit, made with eco-friendly fabric.",
     "category": "hoodie",
     "image": "/images/hoodie-8.jpg",
-    "isOutOfStock": false
+    "isOutOfStock": false,
+    "inCart": false,
+    "quantity": 1
   }
 ]

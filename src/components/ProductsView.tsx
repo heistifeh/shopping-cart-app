@@ -1,34 +1,37 @@
 import { useEffect, useState } from "react";
 import ProductsGrid from "./ProductsGrid";
 import type { Product } from "../types";
+import { useCart } from "../context/CartContext";
 
 
 
 const ProductsView = () => {
-  const [products, setProducts] = useState<Product[]>([]);
   const [category, setCategory] = useState("all");
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("/products.json");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const response = await fetch("/products.json");
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       const data = await response.json();
+  //       setProducts(data);
+  //     } catch (error) {
+  //       console.error("Failed to fetch products:", error);
+  //     }
+  //   };
 
-    fetchProducts();
-  }, []);
+  //   fetchProducts();
+  // }, []);
+
+  const { allProducts } = useCart();
+
 
   const filteredProducts =
     category === "all"
-      ? products
-      : products.filter((product) => product.category === category);
+      ? allProducts
+      : allProducts.filter((product) => product.category === category);
 
   return (
     <div className="products-view container mx-auto">
