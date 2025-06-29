@@ -15,6 +15,7 @@ const CartContext = createContext({
 });
 
 import type { PropsWithChildren } from "react";
+import { getParsedItemFromStorage, setItemInStorage } from "../components/utils/LocalStorage";
 
 export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
   // stores and updates all items
@@ -36,10 +37,27 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+  const storedItems = getParsedItemFromStorage("cartItems");
+  if (Array.isArray(storedItems)) {
+    setAllProducts((prev) =>
+      prev.map((item) => {
+        const match = storedItems.find((s: Product) => s.id === item.id);
+        return match ? { ...item, ...match } : item;
+      })
+    );
+  }
+}, []);
+
+useEffect(() => {
+  const inCart = allProducts.filter((p) => p.inCart);
+  setCartItems(inCart);
+  setItemInStorage("cartItems", inCart);
+}, [allProducts]);
   const setProducts = () => {
     setAllProducts(allProducts);
   };
-  
+
   const addToCart = (product: Product) => {
     setAllProducts((prevProducts) => {
       return prevProducts.map((prevProduct) => {
@@ -71,6 +89,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
       });
     });
   };
+  
   // State for cart open/close
   const [isOpen, setIsOpen] = useState(false);
 
@@ -88,7 +107,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
         isOpen,
         setIsOpen,
         cartItems,
-        setCartItems
+        setCartItems,
       }}
     >
       {children}

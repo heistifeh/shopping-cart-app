@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import ProductsGrid from "./ProductsGrid";
-import type { Product } from "../types";
 import { useCart } from "../context/CartContext";
 
 const ProductsView = () => {

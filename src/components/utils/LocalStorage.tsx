@@ -1,12 +1,28 @@
 import type { Product } from "../../types";
 
-export const setItemInStorage = (name: string, data: Product) =>
-  localStorage?.setItem(name, JSON.stringify(data));
+// Save item or list of items to localStorage
+export function setItemInStorage(key: string, value: Product | Product[]) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
 
-export const getItemFromStorage = (name: string) => localStorage?.getItem(name);
+// Get raw string value from localStorage
+export const getItemFromStorage = (key: string): string | null =>
+  localStorage.getItem(key);
 
-export const getParsedItemFromStorage = (name: string) =>
-  JSON.parse(localStorage?.getItem(name) || "{}") as Product | null ;
+// Get parsed object or array from localStorage (with fallback to null)
+export const getParsedItemFromStorage = (
+  key: string
+): Product | Product[] | null => {
+  const item = localStorage.getItem(key);
+  try {
+    return item ? JSON.parse(item) : null;
+  } catch (e) {
+    console.error(`Failed to parse item for key "${key}":`, e);
+    return null;
+  }
+};
 
-export const removeItemFromStorage = (name: string) =>
-  localStorage?.removeItem(name);
+// Remove key from localStorage
+export const removeItemFromStorage = (key: string): void => {
+  localStorage.removeItem(key);
+};
