@@ -1,11 +1,9 @@
 // src/pages/SearchPage.tsx
 import { Link, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import { useEffect, useMemo, useState } from "react";
-import ProductThumb from "./ProductThumb";
+import { useEffect, useState } from "react";
 import type { Product } from "../types";
 import Navbar from "./Navbar";
-import ProductsView from "./ProductsView";
 import ProductsGrid from "./ProductsGrid";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 const useQuery = () => {

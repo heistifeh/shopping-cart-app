@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
-import type { Product } from "../types";
 import { IoClose } from "react-icons/io5";
 import { FaCheckCircle, FaShoppingCart } from "react-icons/fa";
 import { formatCurrency } from "./utils/FormatCurrency";
-import ProductsGrid from "./ProductsGrid";
 import ProductThumb from "./ProductThumb";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,7 +51,6 @@ const Cart = () => {
   const [coupon, setCoupon] = useState<string>("");
   const [couponUsed, setCouponUsed] = useState<boolean>(false);
 
-  const usedCoupon = localStorage.getItem(COUPON_KEY);
 
   useEffect(() => {
     const used = localStorage.getItem(COUPON_KEY);

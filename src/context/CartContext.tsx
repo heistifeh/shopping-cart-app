@@ -4,14 +4,14 @@ import type { Product } from "../types";
 //this allows us to manage/share data across all components without sharing props
 const CartContext = createContext({
   allProducts: [] as Product[],
-  setProducts: () => {},
-  addToCart: (product: Product) => {},
-  removeFromCart: (product: Product) => {},
-  updateQuantity: (product: Product, amount: number) => {},
+  setProducts: (_products: Product[]) => {},
+  addToCart: (_product: Product) => {},
+  removeFromCart: (_product: Product) => {},
+  updateQuantity: (_product: Product, _amount: number) => {},
   isOpen: false,
-  setIsOpen: (isOpen: boolean) => {},
   cartItems: [] as Product[],
-  setCartItems: (items: Product[]) => {},
+  setIsOpen: (_open: boolean) => {},
+  setCartItems: (_items: Product[]) => {},
 });
 
 import type { PropsWithChildren } from "react";
@@ -92,6 +92,12 @@ useEffect(() => {
   
   // State for cart open/close
   const [isOpen, setIsOpen] = useState(false);
+
+  // Example usage: open cart when an item is added
+  // (Remove this if you already use isOpen elsewhere)
+  // useEffect(() => {
+  //   if (cartItems.length > 0) setIsOpen(true);
+  // }, [cartItems]);
 
   // State for cart items
   const [cartItems, setCartItems] = useState<Product[]>([]);
