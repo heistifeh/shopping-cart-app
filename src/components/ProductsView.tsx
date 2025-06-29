@@ -9,7 +9,7 @@ import {
 const ProductsView = () => {
   const [category, setCategory] = useState("all");
 
-  const { allProducts, setCartItemsFromStorage, setProducts } = useCart();
+  const { allProducts, setCartItemsFromStorage } = useCart();
   useEffect(() => {
     // setProducts();
 
