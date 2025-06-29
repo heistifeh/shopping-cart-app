@@ -6,4 +6,6 @@ export interface Product {
   description: string;
   isOutOfStock: boolean;
   image: string;
+  inCart: boolean;
+  quantity: number;
 }
