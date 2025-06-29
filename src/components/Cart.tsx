@@ -51,7 +51,6 @@ const Cart = () => {
   const [coupon, setCoupon] = useState<string>("");
   const [couponUsed, setCouponUsed] = useState<boolean>(false);
 
-
   useEffect(() => {
     const used = localStorage.getItem(COUPON_KEY);
     setCouponUsed(used === VALID_COUPON.toUpperCase());
@@ -87,6 +86,17 @@ const Cart = () => {
     // clear local storage
     localStorage.removeItem("cartItems");
   };
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
   return (
     <>
       {cartItems.length !== 0 && (
@@ -117,12 +127,12 @@ const Cart = () => {
               </span>
             </button>
           )}
-          <div className="h-screen flex flex-col gap-y-3 overflow-y-scroll px-5 pb-24 pt-20">
+          <div className="h-screen flex flex-col gap-y-2 overflow-y-scroll px-5 pb-18 pt-20">
             {cartItems?.map((product) => {
-              return <ProductThumb product={product} scale={40} />;
+              return <ProductThumb product={product} scale={20} />;
             })}
           </div>
-          <div className="w-full h-40 bg-gray-100 absolute bottom-0 left-0 z-10 grid place-items-center shadow-md rounded-lg">
+          <div className="w-full h-30 bg-gray-100 absolute bottom-0 left-0 z-10 grid place-items-center shadow-md rounded-lg">
             {/* coupon */}
             <form
               onSubmit={handleSubmit}
