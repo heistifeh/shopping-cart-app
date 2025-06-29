@@ -13,7 +13,7 @@ const Cart = () => {
   const { cartItems, setCartItems } = useCart();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const { isOpen, setIsOpen } = useCart();
-  const { allProducts } = useCart();
+  const { allProducts, setLocalStorage } = useCart();
 
   // hide when navbar shows
   const [hideCartIcon, setHideCartIcon] = useState(false);
@@ -45,7 +45,7 @@ const Cart = () => {
     }, 0);
     setTotalPrice(price);
 
-    // setLocalStorage();
+    setLocalStorage();
   }, [allProducts]);
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
   const [coupon, setCoupon] = useState<string>("");

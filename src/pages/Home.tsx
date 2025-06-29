@@ -3,6 +3,8 @@ import ProductsView from "../components/ProductsView";
 import Cart from "../components/Cart";
 import { ToastContainer } from "react-toastify";
 const Home = () => {
+  // get the cart items from local storage
+  
   return (
     <div className="bg-gray-100 min-h-screen font-titillium">
       <div className="px-4 container mx-auto">
