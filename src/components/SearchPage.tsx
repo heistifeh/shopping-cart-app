@@ -6,6 +6,7 @@ import type { Product } from "../types";
 import Navbar from "./Navbar";
 import ProductsGrid from "./ProductsGrid";
 import { MdOutlineArrowBackIos } from "react-icons/md";
+import Cart from "./Cart";
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
@@ -27,6 +28,7 @@ const SearchPage = () => {
       <div className="bg-gray-100 min-h-screen font-titillium">
         <div className="px-4 container mx-auto">
           <Navbar />
+          <Cart />
           {results.length > 0 ? (
             // <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             //   {results.map((product) => (
