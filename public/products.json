@@ -27,8 +27,8 @@
     "price": 89.99,
     "description": "Lightweight and breathable running shoes for everyday workouts.",
     "category": "shoes",
-    "image": "/images/shoes-4.jpg",
-    "isOutOfStock": false,
+    "image": "/images/shoes-10.jpg",
+    "isOutOfStock": true,
     "inCart": false,
     "quantity": 1
   },
@@ -50,7 +50,7 @@
     "description": "Sleek bomber with ribbed cuffs and a lightweight lining.",
     "category": "jacket",
     "image": "/images/jacket-4.jpg",
-    "isOutOfStock": true,
+    "isOutOfStock": false,
     "inCart": false,
     "quantity": 1
   },
@@ -60,7 +60,7 @@
     "price": 74.99,
     "description": "Trendy sneakers designed for style and comfort.",
     "category": "shoes",
-    "image": "/images/shoes-10.jpg",
+    "image": "/images/shoes-4.jpg",
     "isOutOfStock": false,
     "inCart": false,
     "quantity": 1

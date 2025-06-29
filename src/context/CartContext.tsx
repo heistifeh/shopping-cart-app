@@ -1,14 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-// import {
-//   getItemFromStorage,
-//   getParsedItemFromStorage,
-//   setItemInStorage,
-// } from "../utilities/LocalStorage";
-// import {
-//   getItemFromStorage,
-//   getParsedItemFromStorage,
-//   setItemInStorage,
-// } from "../utilities/LocalStorage";
+
 import type { Product } from "../types";
 //this allows us to manage/share data across all components without sharing props
 const CartContext = createContext({
@@ -17,8 +8,10 @@ const CartContext = createContext({
   addToCart: (product: Product) => {},
   removeFromCart: (product: Product) => {},
   updateQuantity: (product: Product, amount: number) => {},
-  //   setLocalStorage: () => {},
-  //   setCartItemsFromStorage: () => void;
+  isOpen: false,
+  setIsOpen: (isOpen: boolean) => {},
+  cartItems: [] as Product[],
+  setCartItems: (items: Product[]) => {},
 });
 
 import type { PropsWithChildren } from "react";
@@ -27,7 +20,6 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
   // stores and updates all items
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   useEffect(() => {
-
     const fetchProducts = async () => {
       try {
         const response = await fetch("/products.json");
@@ -47,6 +39,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
   const setProducts = () => {
     setAllProducts(allProducts);
   };
+  
   const addToCart = (product: Product) => {
     setAllProducts((prevProducts) => {
       return prevProducts.map((prevProduct) => {
@@ -55,7 +48,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
         }
 
         return prevProduct.id === product.id
-          ? { ...prevProduct, 'inCart': true }
+          ? { ...prevProduct, inCart: true }
           : prevProduct;
       });
     });
@@ -78,28 +71,12 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
       });
     });
   };
-  //   const setLocalStorage = () => {
-  //     if (allItems.length !== 0) {
-  //       const inCartItems = allItems.filter((item) => item.inCart);
-  //       setItemInStorage("cartItems", inCartItems);
-  //     }
-  //   };
+  // State for cart open/close
+  const [isOpen, setIsOpen] = useState(false);
 
-  //   const setCartItemsFromStorage = () => {
-  //     if (getItemFromStorage("cartItems") !== null) {
-  //       const storageItems = getParsedItemFromStorage("cartItems");
+  // State for cart items
+  const [cartItems, setCartItems] = useState<Product[]>([]);
 
-  //       setAllItems((prevItems) => {
-  //         return prevItems.map((item) => {
-  //           const matchedItem = storageItems.find(
-  //             (storageItem) => storageItem.id === item.id
-  //           );
-  //           return matchedItem ? matchedItem : item;
-  //         });
-  //       });
-  //     }
-  //   };
-  // children allows to input whatever component
   return (
     <CartContext.Provider
       value={{
@@ -108,6 +85,10 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
         addToCart,
         removeFromCart,
         updateQuantity,
+        isOpen,
+        setIsOpen,
+        cartItems,
+        setCartItems
       }}
     >
       {children}

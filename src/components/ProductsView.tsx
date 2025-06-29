@@ -3,8 +3,6 @@ import ProductsGrid from "./ProductsGrid";
 import type { Product } from "../types";
 import { useCart } from "../context/CartContext";
 
-
-
 const ProductsView = () => {
   const [category, setCategory] = useState("all");
 
@@ -27,16 +25,15 @@ const ProductsView = () => {
 
   const { allProducts } = useCart();
 
-
-  const filteredProducts =
-    category === "all"
-      ? allProducts
-      : allProducts.filter((product) => product.category === category);
+  // const filteredProducts =
+  //   category === "all"
+  //     ? allProducts
+  //     : allProducts.filter((product) => product.category === category);
 
   return (
     <div className="products-view container mx-auto">
       {/* //category filter */}
-      <div className="bg-blue-500 text-white p-2 mb-4 rounded max-w-sm flex justify-between items-center">
+      <div className="bg-pink-900 text-white p-2 mb-4 rounded max-w-sm flex justify-between items-center">
         <select>
           <option value="all">All Categories</option>
           <option value="hoodie">Hoodies</option>
@@ -48,7 +45,7 @@ const ProductsView = () => {
       <div>
         {/* //product grid */}
 
-        <ProductsGrid products={filteredProducts} />
+        <ProductsGrid products={allProducts} />
       </div>
     </div>
   );

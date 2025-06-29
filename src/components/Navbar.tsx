@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
+  const { setIsOpen, cartItems } = useCart();
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between py-4 space-y-4 sm:space-y-0  container mx-auto">
       <Link
@@ -19,8 +21,16 @@ const Navbar = () => {
           />
         </form>
         <div className="gap-2 sm:gap-4 flex items-center justify-center sm:justify-start  sm:w-auto">
-          <div className=" text-white px-4 py-2 rounded  bg-gray-500 hover:bg-gray-600 lg:w-auto w-full flex items-center justify-center cursor-pointer">
+          <div
+            onClick={() => setIsOpen(true)}
+            className=" relative text-white px-4 py-2 rounded  bg-gray-500 hover:bg-gray-600 lg:w-auto w-full flex items-center justify-center cursor-pointer"
+          >
             <FaShoppingCart />
+            {cartItems.length > 0 && (
+              <span className="w-6 h-6 bg-red-500 absolute -bottom-4 -left-2 grid place-items-center border border-gray-300 rounded-full text-sm text-white ">
+                {cartItems.length > 9 ? "9+" : cartItems.length}
+              </span>
+            )}
           </div>
           <div className=" text-white px-4 py-2 rounded  bg-gray-500 hover:bg-gray-600 lg:w-auto w-full items-center justify-center  sm:flex cursor-pointer">
             <FaUser />
