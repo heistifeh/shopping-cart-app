@@ -22,6 +22,7 @@ type CartContextType = {
   setCartItems: (_items: Product[]) => void;
   setLocalStorage: () => void;
   setCartItemsFromStorage: () => void;
+  resetProducts: () => void;
 };
 
 const CartContext = createContext<CartContextType>({
@@ -36,6 +37,7 @@ const CartContext = createContext<CartContextType>({
   setCartItems: (_items: Product[]) => {},
   setLocalStorage: () => {},
   setCartItemsFromStorage: () => {},
+  resetProducts: () => {},
 });
 export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
   // stores and updates all items
@@ -72,6 +74,14 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
 
   const setProducts = () => {
     setAllProducts(allProducts);
+  };
+  //reset product
+  const resetProducts = () => {
+     setAllProducts(allProducts.map((item) => ({
+      ...item,
+      inCart: false,
+      quantity: 1,
+    })))
   };
 
   const addToCart = (product: Product) => {
@@ -168,6 +178,7 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
         setCartItems,
         setLocalStorage,
         setCartItemsFromStorage,
+        resetProducts,
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import type { Product } from "../../types";
 const CartButton = ({ product }: { product: Product }) => {
   const { allProducts, addToCart, removeFromCart, updateQuantity } = useCart();
   const currentProduct = allProducts.find((p) => p.id === product.id);
+  
 
   if (!currentProduct) return null;
   return (

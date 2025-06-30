@@ -10,10 +10,16 @@ import "react-toastify/dist/ReactToastify.css";
 const COUPON_KEY = "couponUsed";
 const VALID_COUPON = "POWERLABSx";
 const Cart = () => {
-  const { cartItems, setCartItems } = useCart();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const { isOpen, setIsOpen } = useCart();
-  const { allProducts, setLocalStorage, setProducts } = useCart();
+  const {
+    cartItems,
+    setCartItems,
+    allProducts,
+    setLocalStorage,
+    resetProducts,
+    setProducts,
+  } = useCart();
   // hide when navbar shows
   const [hideCartIcon, setHideCartIcon] = useState(false);
 
@@ -184,13 +190,7 @@ const Cart = () => {
             <button
               onClick={() => {
                 setCartItems([]);
-                setProducts(
-                  allProducts.map((item) => ({
-                    ...item,
-                    inCart: false,
-                    quantity: 1,
-                  }))
-                );
+                resetProducts();
                 toast.success("🎉 Purchase successful!");
                 localStorage.removeItem("cartItems");
                 setShowConfirmation(false);
