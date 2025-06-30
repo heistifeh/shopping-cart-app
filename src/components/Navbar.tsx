@@ -5,8 +5,10 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 
 const Navbar = () => {
-  const { setIsOpen, cartItems } = useCart();
+  const { setIsOpen, cartItems,setUniversalInput } = useCart();
   const [searchInput, setSearchInput] = useState<string>("");
+
+  //save useInput into context 
   const navigate = useNavigate();
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +33,10 @@ const Navbar = () => {
             type="search"
             placeholder="search for products.."
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={(e) =>{
+               setSearchInput(e.target.value)
+              setUniversalInput(e.target.value)
+              }}
             className="px-4 py-2 bg-gray-200 rounded focus:outline-gray-300 w-full max-w-6xl placeholder:text-xs sm:placeholder:text-sm"
           />
         </form>
