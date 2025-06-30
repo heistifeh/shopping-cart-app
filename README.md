@@ -144,6 +144,6 @@ App will run locally at `http://localhost:5173`
 
 ## 👨‍💻 Author
 
-Boluwatife Eniola Osineye
 
-Made with ❤️ by [Your Name](https://github.com/heistifeh)
+
+Made with ❤️ by Boluwatife Eniola Osineye (https://github.com/heistifeh)
