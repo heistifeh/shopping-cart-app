@@ -1,21 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 import { toast } from "react-toastify";
-import { useState } from "react";
 
 const Navbar = () => {
-  const { setIsOpen, cartItems,setUniversalInput } = useCart();
-  const [searchInput, setSearchInput] = useState<string>("");
+  const { setIsOpen, cartItems, setUniversalInput, universalInput } = useCart();
 
-  //save useInput into context 
-  const navigate = useNavigate();
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (searchInput.trim()) {
-      navigate(`/search?query=${encodeURIComponent(searchInput.trim())}`);
-    }
-  };
+  // const [searchInput, setSearchInput] = useState<string>("");
+
+  //save useInput into context
+  // const navigate = useNavigate();
+  // const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   if (searchInput.trim()) {
+  //     navigate(`/search?query=${encodeURIComponent(searchInput.trim())}`);
+  //   }
+  // };
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between py-4 space-y-4 sm:space-y-0  container mx-auto">
       <Link
@@ -26,17 +26,16 @@ const Navbar = () => {
       </Link>
       <div className="flex items-center w-full gap-4 sm:gap-0  ">
         <form
-          onSubmit={handleSearch}
+          onSubmit={() => {}}
           className="flex items-center sm:w-20 flex-1 sm:mx-4 "
         >
           <input
             type="search"
             placeholder="search for products.."
-            value={searchInput}
-            onChange={(e) =>{
-               setSearchInput(e.target.value)
-              setUniversalInput(e.target.value)
-              }}
+            value={universalInput}
+            onChange={(e) => {
+              setUniversalInput(e.target.value);
+            }}
             className="px-4 py-2 bg-gray-200 rounded focus:outline-gray-300 w-full max-w-6xl placeholder:text-xs sm:placeholder:text-sm"
           />
         </form>

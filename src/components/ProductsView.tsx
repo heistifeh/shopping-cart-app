@@ -7,7 +7,6 @@ import {
 } from "./utils/LocalStorage";
 
 const ProductsView = () => {
-  const [category, setCategory] = useState("all");
 
   const { allProducts, setCartItemsFromStorage ,universalInput,universalCategory,setUniversalCategory} = useCart();
   const [filteredProduct, setFilteredProduct] = useState(allProducts);
