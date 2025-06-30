@@ -1,13 +1,27 @@
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import ProductsGrid from "./ProductsGrid";
 import { useCart } from "../context/CartContext";
+import {
+  getItemFromStorage,
+  getParsedItemFromStorage,
+} from "./utils/LocalStorage";
 
 const ProductsView = () => {
   const [category, setCategory] = useState("all");
 
+  const { allProducts, setCartItemsFromStorage } = useCart();
+  useEffect(() => {
+    // setProducts();
 
+    if (
+      getParsedItemFromStorage("cartItems")?.length !== 0 &&
+      getItemFromStorage("cartItems") !== null
+    ) {
+      setCartItemsFromStorage();
+    }
+  }, []);
 
-  const { allProducts } = useCart();
+  useEffect(() => {}, allProducts);
 
   const filteredProducts =
     category === "all"
@@ -16,18 +30,7 @@ const ProductsView = () => {
 
   return (
     <div className="products-view container mx-auto">
-      {/* //category filter */}
-      {/* <div className="bg-gray-100 text-white p-2 mb-4 rounded max-w-sm flex justify-between items-center">
-        <select className="bg-pink-200 text-black p-2 rounded focus:outline-none"
-        value={category}
-          onChange={(e) => setCategory(e.target.value)}>
-          <option value="all" className="bg-black">All Categories</option>
-          <option value="hoodie">Hoodies</option>
-          <option value="jacket">Jackets</option>
-          <option value="shoes">Shoes</option>
-        </select>
-      </div> */}
-       <div className="bg-pink-900 text-white px-4 py-3 mb-6 rounded-lg max-w-sm w-full flex justify-between items-center shadow-md">
+      <div className="bg-pink-900 text-white px-4 py-3 mb-6 rounded-lg max-w-sm w-full flex justify-between items-center shadow-md">
         <label htmlFor="category" className="text-base font-bold mr-2">
           Filter by Category
         </label>
@@ -46,7 +49,6 @@ const ProductsView = () => {
 
       <div>
         {/* //product grid */}
-
         <ProductsGrid products={filteredProducts} />
       </div>
     </div>

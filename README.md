@@ -1,69 +1,149 @@
-# React + TypeScript + Vite
+# 🛒 Shopping Cart Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a frontend technical test project built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**. It implements a fully functional shopping cart with product listing, coupon code discounts, and quantity management — all using Context API for state management.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- ⚛️ React 19 + TypeScript
+- ⚡ Vite for fast development
+- 💨 Tailwind CSS for styling
+- 🔄 React Router v7 — page routing
+- 🔧 Context API — global cart state
+- 🔔 React Toastify — notifications
+- 🎯 ESLint + TypeScript for code quality
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📄 Project Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+| Feature               | Description                                                           |
+| --------------------- | --------------------------------------------------------------------- |
+| 🛍 Product Listing     | Products are fetched from a local JSON mock (`/public/products.json`) |
+| ➕ Add to Cart        | Add any product to the cart with default quantity                     |
+| ➖➕ Quantity Control | Increase or decrease product quantity in the cart                     |
+| ❌ Remove Items       | Remove items entirely from the cart                                   |
+| 💰 Total Calculator   | Calculates total price dynamically                                    |
+| 🎟️ Coupon Support     | Supports `POWERLABSx` for 13.2% discount                              |
+| ✅ Input Validation   | Validates coupon code before applying                                 |
+| 🛑 Error Handling     | Handles errors and edge cases gracefully                              |
+| 📦 Responsive UI      | Fully mobile-friendly interface                                       |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🧩 Folder Structure
+
+```
+src/
+├── assets/              # Images and static files
+├── components/          # Shared reusable components (Navbar, ProductCard, Cart, etc.)
+├── context/             # CartContext using React's Context API
+├── pages/               # Main route pages (Home, Search)
+├── types/               # TypeScript type definitions
+├── ui/                  # Custom UI elements (e.g., Loading spinners, ProductThumb)
+├── utils/               # Helpers like formatCurrency, localStorage handlers
+├── App.tsx              # Main route setup
+└── main.tsx             # React entry point
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🌐 Routes
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```tsx
+<Router>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/search" element={<SearchPage />} />
+  </Routes>
+</Router>
 ```
+
+---
+
+## 📦 Key Dependencies
+
+```json
+"react": "^19.1.0",
+"react-router-dom": "^7.6.3",
+"tailwindcss": "^4.1.11",
+"react-toastify": "^11.0.5",
+"framer-motion": "^12.19.2"
+```
+
+Dev dependencies include:
+
+```json
+"typescript": "~5.8.3",
+"eslint": "^9.29.0",
+"@vitejs/plugin-react": "^4.5.2"
+```
+
+---
+
+## 🧑‍💻 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/shopping-cart.git
+cd shopping-cart
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+# or
+yarn
+```
+
+### 3. Run the development server
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+App will run locally at `http://localhost:5173`
+
+---
+
+## ✅ Completed Features
+
+- [x] Product display from local `products.json`
+- [x] Cart functionality with quantity updates and item removal
+- [x] Total price calculation
+- [x] Coupon validation (POWERLABSx → 13.2% off)
+- [x] Responsive Tailwind CSS styling
+- [x] Context API state management
+- [x] React Toastify for alerts
+- [x] Clean routing with React Router v7
+- [x] Live hosted version via Vercel or GitHub Pages
+
+---
+
+## 📄 Notes
+
+- This is a frontend-only project.
+- All data is mocked — no external API or backend integration.
+- Context API manages global cart state cleanly and efficiently.
+- You can find mock data in `public/products.json`.
+- Feel free to fork, reuse, and build upon this project!
+
+---
+
+## 🌍 Live Demo
+
+**Live URL**: https://shopping-cart-app-brown.vercel.app/
+**GitHub Repo**: https://github.com/heistifeh/shopping-cart-app
+
+---
+
+## 👨‍💻 Author
+
+Boluwatife Eniola Osineye
+
+Made with ❤️ by [Your Name](https://github.com/heistifeh)

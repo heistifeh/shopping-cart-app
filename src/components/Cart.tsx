@@ -13,11 +13,13 @@ const Cart = () => {
   const { cartItems, setCartItems } = useCart();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const { isOpen, setIsOpen } = useCart();
-  const { allProducts } = useCart();
-
+  const { allProducts, setLocalStorage, setProducts } = useCart();
   // hide when navbar shows
   const [hideCartIcon, setHideCartIcon] = useState(false);
 
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const [coupon, setCoupon] = useState<string>("");
+  const [couponUsed, setCouponUsed] = useState<boolean>(false);
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
@@ -45,12 +47,8 @@ const Cart = () => {
     }, 0);
     setTotalPrice(price);
 
-    // setLocalStorage();
+    setLocalStorage();
   }, [allProducts]);
-  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
-  const [coupon, setCoupon] = useState<string>("");
-  const [couponUsed, setCouponUsed] = useState<boolean>(false);
-
 
   useEffect(() => {
     const used = localStorage.getItem(COUPON_KEY);
@@ -73,7 +71,7 @@ const Cart = () => {
 
     if (entered === VALID_COUPON.toUpperCase()) {
       setTotalPrice((prev) => prev * 0.868); // Apply 13.2% discount
-      localStorage.setItem(COUPON_KEY, entered); // ✅ Persist the used coupon
+      localStorage.setItem(COUPON_KEY, entered);
       setCouponUsed(true);
       toast.success("🎉 Coupon applied! 13.2% discount.");
     } else {
@@ -83,10 +81,29 @@ const Cart = () => {
   const handlePurchase = () => {
     setShowConfirmation(true);
     // clear cart after purchase
+    // Clear `inCart` and reset quantity in allProducts
+    const cleared = allProducts.map((item) => ({
+      ...item,
+      inCart: false,
+      quantity: 1,
+    }));
+
     setCartItems([]);
-    // clear local storage
+    setProducts(cleared);
     localStorage.removeItem("cartItems");
   };
+  // Effect to handle body overflow when cart is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
   return (
     <>
       {cartItems.length !== 0 && (
@@ -117,12 +134,12 @@ const Cart = () => {
               </span>
             </button>
           )}
-          <div className="h-screen flex flex-col gap-y-3 overflow-y-scroll px-5 pb-24 pt-20">
+          <div className="h-screen flex flex-col gap-y-2 overflow-y-scroll px-5 pb-18 pt-20">
             {cartItems?.map((product) => {
-              return <ProductThumb product={product} scale={40} />;
+              return <ProductThumb product={product} scale={20} />;
             })}
           </div>
-          <div className="w-full h-40 bg-gray-100 absolute bottom-0 left-0 z-10 grid place-items-center shadow-md rounded-lg">
+          <div className="w-full h-30 bg-gray-100 absolute bottom-0 left-0 z-10 grid place-items-center shadow-md rounded-lg">
             {/* coupon */}
             <form
               onSubmit={handleSubmit}
@@ -135,7 +152,10 @@ const Cart = () => {
                 placeholder="Enter coupon code"
                 className="px-4 py-2 bg-gray-200 rounded focus:outline-gray-300 w-full max-w-6xl placeholder:text-xs sm:placeholder:text-sm"
               />
-              <button className="rounded-md bg-green-300 px-2 py-1 text-white hover:bg-green-400 transition-colors cursor-pointer">
+              <button
+                disabled={coupon == ""}
+                className="rounded-md bg-green-300 px-2 py-1 text-white hover:bg-green-400 transition-colors cursor-pointer"
+              >
                 Apply
               </button>
             </form>
@@ -164,7 +184,15 @@ const Cart = () => {
             <button
               onClick={() => {
                 setCartItems([]);
+                setProducts(
+                  allProducts.map((item) => ({
+                    ...item,
+                    inCart: false,
+                    quantity: 1,
+                  }))
+                );
                 toast.success("🎉 Purchase successful!");
+                localStorage.removeItem("cartItems");
                 setShowConfirmation(false);
                 setIsOpen(false);
               }}
