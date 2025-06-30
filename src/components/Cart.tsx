@@ -10,10 +10,17 @@ import "react-toastify/dist/ReactToastify.css";
 const COUPON_KEY = "couponUsed";
 const VALID_COUPON = "POWERLABSx";
 const Cart = () => {
-  const { cartItems, setCartItems } = useCart();
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const { isOpen, setIsOpen } = useCart();
-  const { allProducts, setLocalStorage, setProducts } = useCart();
+  const {
+    cartItems,
+    setCartItems,
+    allProducts,
+    setLocalStorage,
+    resetProducts,
+    setProducts,
+    setUniversalCategory
+  } = useCart();
   // hide when navbar shows
   const [hideCartIcon, setHideCartIcon] = useState(false);
 
@@ -136,7 +143,7 @@ const Cart = () => {
           )}
           <div className="h-screen flex flex-col gap-y-2 overflow-y-scroll px-5 pb-18 pt-20">
             {cartItems?.map((product) => {
-              return <ProductThumb product={product} scale={20} />;
+              return <ProductThumb product={product} scale={20} key={product.id}/>;
             })}
           </div>
           <div className="w-full h-30 bg-gray-100 absolute bottom-0 left-0 z-10 grid place-items-center shadow-md rounded-lg">
@@ -172,7 +179,7 @@ const Cart = () => {
         </div>
       )}
       {showConfirmation && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-pink-900/15 flex items-center justify-center">
           <div className="bg-white rounded-lg p-6 max-w-sm w-full text-center space-y-4 animate-fade-in">
             <FaCheckCircle className="mx-auto text-green-500 text-5xl" />
             <h2 className="text-lg font-semibold text-gray-800">
@@ -184,13 +191,8 @@ const Cart = () => {
             <button
               onClick={() => {
                 setCartItems([]);
-                setProducts(
-                  allProducts.map((item) => ({
-                    ...item,
-                    inCart: false,
-                    quantity: 1,
-                  }))
-                );
+                setUniversalCategory("all")
+                resetProducts();
                 toast.success("🎉 Purchase successful!");
                 localStorage.removeItem("cartItems");
                 setShowConfirmation(false);

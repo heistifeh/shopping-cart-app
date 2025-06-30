@@ -22,6 +22,12 @@ type CartContextType = {
   setCartItems: (_items: Product[]) => void;
   setLocalStorage: () => void;
   setCartItemsFromStorage: () => void;
+  resetProducts: () => void;
+  universalInput: string;
+  setUniversalInput: React.Dispatch<React.SetStateAction<string>>;
+  universalCategory: string;
+  setUniversalCategory: React.Dispatch<React.SetStateAction<string>>;
+  
 };
 
 const CartContext = createContext<CartContextType>({
@@ -36,10 +42,18 @@ const CartContext = createContext<CartContextType>({
   setCartItems: (_items: Product[]) => {},
   setLocalStorage: () => {},
   setCartItemsFromStorage: () => {},
+  resetProducts: () => {},
+  universalInput:'',
+  setUniversalInput:()=>{},
+  universalCategory:'all',
+  setUniversalCategory:()=>{}
+
 });
 export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
   // stores and updates all items
   const [allProducts, setAllProducts] = useState<Product[]>([]);
+const [universalInput,setUniversalInput]=useState<string>("")
+const [universalCategory,setUniversalCategory]=useState<string>("all")
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -72,6 +86,14 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
 
   const setProducts = () => {
     setAllProducts(allProducts);
+  };
+  //reset product
+  const resetProducts = () => {
+     setAllProducts(allProducts.map((item) => ({
+      ...item,
+      inCart: false,
+      quantity: 1,
+    })))
   };
 
   const addToCart = (product: Product) => {
@@ -168,6 +190,11 @@ export const CartProvider = ({ children }: PropsWithChildren<{}>) => {
         setCartItems,
         setLocalStorage,
         setCartItemsFromStorage,
+        resetProducts,
+        universalInput,
+        setUniversalInput,
+        universalCategory,
+        setUniversalCategory
       }}
     >
       {children}
